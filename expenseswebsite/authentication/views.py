@@ -8,10 +8,10 @@ from validate_email import validate_email
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.contrib import auth
-from django.utils.encoding import force_bytes, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse
-from .utils import account_activation_token
+from django.contrib import auth
 
 
 # Create your views here.
@@ -56,17 +56,29 @@ class RegistrationView(View):
                     return render(request, 'authentication/register.html', context)
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password)
-                user.is_active = False
                 user.save()
                 messages.success (request, 'Account successfully created')
                 return render(request, 'authentication/register.html')
             
         return render(request, 'authentication/register.html')
     
-class VerificationView(View):
-    def get(self, request, uidb64, token):
-        return redirect('login')
     
 class LoginView(View):
     def get(self, request):
+        return render(request, 'authentication/login.html')
+    
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        if username and password:
+            user = auth.authenticate(username=username, password=password)
+            
+            if user:
+                auth.login(request, user)
+                messages.success(request, 'Welcome, ' + user.username + ' you are now logged in')
+                return redirect('expenses')
+            messages.error(request, 'Invalid credentials, try again')
+            return render(request, 'authentication/login.html')
+        messages.error(request, 'Please fill all fields')
         return render(request, 'authentication/login.html')
