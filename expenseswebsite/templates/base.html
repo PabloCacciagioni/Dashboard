@@ -177,6 +177,15 @@
     <div id="navbarSearch" class="navbar-search w-100 collapse">
       <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
     </div>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <form action="{% url 'logout' %}" method="POST">
+          {% csrf_token %}
+          {% include 'partials/_mesages.html' %}
+          <input class="text text-capitalize" type="submit" value="Sign out">
+        </form>
+      </li>
+    </ul>
   </header>
 
   <div class="container-fluid">
