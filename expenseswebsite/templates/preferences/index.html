@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    {% include 'partials/_mesages.html' %}
+    <form action="{% url 'preferences' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <select class="form-select rounded-start" aria-label="Default select sample" id="preferredCurrency" name="preferred_currency">
+                <option value="" disabled selected>Select a currency...</option>
+                {% for currency in currencies %}
+                <option value="{{ currency.value }}">{{ currency.name }} - {{ currency.value }}</option>
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <input class="btn btn-outline-secondary rounded-end" type="submit" value="Save">
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr>
+{% endblock %}
