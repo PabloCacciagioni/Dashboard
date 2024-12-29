@@ -20,7 +20,7 @@ def index(request):
         if request.method == 'GET':
             return render(request, 'preferences/index.html', {'currencies': currency_data, 'user_preferences': user_preferences})
         else:
-            currency = request.POST('currency')
+            currency = request.POST['currency']
             if exists:
                 user_preferences.currency = currency
                 user_preferences.save()
