@@ -4,18 +4,14 @@
 {% block content %}
     
 <div class="container">
-    {% include 'partials/_messages.html' %}
-    <h1>Expenses List</h1>
-
-    <ul class="list-group">
-        <li class="list-group-item">Bought beer</li>
-        <li class="list-group-item">Bought beer</li>
-        <li class="list-group-item">Bought beer</li>
-        <li class="list-group-item">Bought beer</li>
-        <li class="list-group-item">Bought beer</li>
-        <li class="list-group-item">Bought beer</li>
-        <li class="list-group-item">Bought beer</li>
-        <li class="list-group-item">Bought beer</li>
-    </ul>
+    {% include 'partials/_mesages.html' %}
+    <div class="col-md-9">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Expenses</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Expense</li>
+            </ol>
+        </nav>
+    </div>
 </div>
 {% endblock %}
