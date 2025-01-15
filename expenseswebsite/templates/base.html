@@ -181,7 +181,6 @@
       <li class="nav-item text-nowrap">
         <form action="{% url 'logout' %}" method="POST">
           {% csrf_token %}
-          {% include 'partials/_mesages.html' %}
           <input class="text text-capitalize" type="submit" value="Sign out">
         </form>
       </li>
