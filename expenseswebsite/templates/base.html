@@ -177,8 +177,13 @@
     <div id="navbarSearch" class="navbar-search w-100 collapse">
       <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
     </div>
-    <ul class="navbar-nav px-3">
+    <ul class="navbar-nav px-3" style="display: flex; flex-direction: row; align-items: center;">
       <li class="nav-item text-nowrap">
+        <a class="nav-link" href="">
+          {{request.user.username}}
+        </a>
+      </li>
+      <li class="nav-item text-nowrap mt-3 ms-3">
         <form action="{% url 'logout' %}" method="POST">
           {% csrf_token %}
           <input class="text text-capitalize" type="submit" value="Sign out">
