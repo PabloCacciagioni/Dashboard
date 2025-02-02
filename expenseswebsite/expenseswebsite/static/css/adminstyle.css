@@ -1,0 +1,24 @@
+#header{
+    background: rgb(0, 62, 69);
+    color: #ffff;
+}
+
+div.breadcrums{
+    background: rgb(61, 88, 106);
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: #ffff;
+    text-align: center;
+}
+
+input[type=submit], input[type=button], .submit-row input{
+    width: 100%;
+    background: rgb(0, 62, 69);
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+  background: rgb(0, 62, 69);
+}
