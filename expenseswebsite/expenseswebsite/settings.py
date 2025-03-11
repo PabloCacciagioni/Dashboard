@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
+        'NAME': os.environ.get('DB_NAME', 'test_db'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
         'PASSWORD': 44495131,
-        'HOST': os.environ.get('DB_HOST'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
     }
 }
 
