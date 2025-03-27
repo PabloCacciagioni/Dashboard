@@ -112,6 +112,7 @@ def expense_edit(request, id):
         messages.success(request, 'Expense Updated successfully ')
         return redirect('expenses')
     
+@login_required(login_url='/authentication/login')
 def delete_expense(request, id):
     expense = Expense.objects.get(pk=id)
     expense.delete()
@@ -143,6 +144,6 @@ def expense_category_summary(request):
 
     return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
-
+@login_required(login_url='/authentication/login')
 def stats_view(request):
     return render(request, 'expenses/stats.html')
