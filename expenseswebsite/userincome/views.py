@@ -9,6 +9,7 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+@login_required(login_url='/authentication/login')
 def search_income(request):
     if request.method == 'POST':
         search_str = json.loads(request.body).get('searchText')
@@ -111,12 +112,14 @@ def income_edit(request, id):
         messages.success(request, 'Record Updated successfully ')
         return redirect('income')
     
+@login_required(login_url='/authentication/login')
 def delete_income(request, id):
     income = UserIncome.objects.get(pk=id)
     income.delete()
     messages.success(request, 'Record removed')
     return redirect('income')
 
+@login_required(login_url='/authentication/login')
 def income_category_summary(request):
     todays_date = datetime.date.today()
     six_months_ago = todays_date-datetime.timedelta(days=30*6)
@@ -142,6 +145,6 @@ def income_category_summary(request):
 
     return JsonResponse({'income_category_data': finalrep}, safe=False)
 
-
+@login_required(login_url='/authentication/login')
 def stats_view(request):
     return render(request, 'income/stats.html')
