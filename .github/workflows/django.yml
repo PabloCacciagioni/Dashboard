@@ -27,10 +27,16 @@ jobs:
 
     env:
       DATABASE_URL: postgres://pablo:44495131@localhost:5432/test_db
+      DB_NAME: test_db
+      DB_USER: pablo
+      DB_PASSWORD: 44495131
+      DB_HOST: postgres
+      DB_PORT: 5432
       DJANGO_SETTINGS_MODULE: expenseswebsite.settings
       SECRET_KEY: testsecretkey
       DEBUG: 'True'
 
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
