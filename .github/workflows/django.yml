@@ -36,7 +36,7 @@ jobs:
       SECRET_KEY: testsecretkey
       DEBUG: 'True'
 
-      
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -51,6 +51,13 @@ jobs:
 
       - name: Install dependecies
         run: pipenv install --dev
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h postgres -p 5432; do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
 
       - name: Run migrations
         run: pipenv run python manage.py migrate
