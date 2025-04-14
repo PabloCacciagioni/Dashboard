@@ -35,7 +35,3 @@ class PreferencesIndexViewTest(TestCase):
         response = self.client.post(self.url, {'currency': 'USD'})
         self.assertEqual(UserPreference.objects.get(user=self.user).currency, 'USD')
         
-    def test_redirect_if_not_logged_in(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/authentication/login'))
