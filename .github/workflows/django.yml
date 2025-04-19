@@ -60,5 +60,5 @@ jobs:
         working-directory: ./expenseswebsite
 
       - name: Run tests
-        run: pipenv run python manage.py test
+        run: pipenv run python manage.py test --keepdb
         working-directory: ./expenseswebsite
