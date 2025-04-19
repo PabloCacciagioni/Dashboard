@@ -12,24 +12,21 @@ jobs:
 
     services:
       postgres:
-        image: postgres:13
+        image: postgres:14
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: 44495131
           POSTGRES_DB: test_db
         ports:
-          -5432:5432
-        options: >-
-          --health-cmd pg-isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          - 5432:5432
 
     env:
-      DATABASE_URL: postgres://postgres:44495131@localhost:5432/test_db
-      DJANGO_SETTINGS_MODULE: expenseswebsite.settings
-      SECRET_KEY: testsecretkey
-      DEBUG: 'True'
+      DB_NAME: test_db
+      DB_USER: postgres
+      DB_PASSWORD: 44495131
+      DB_HOST: 127.0.0.1 
+      DB_PORT: 5432
+      DEBUG: "True"
 
     steps:
       - name: Checkout code
@@ -46,8 +43,22 @@ jobs:
       - name: Install dependecies
         run: pipenv install --dev
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          echo "Esperando a que PostgreSQL esté listo..."
+          for i in {1..30}; do
+            if pg_isready -h 127.0.0.1 -p 5432 -U postgres; then
+              echo "PostgreSQL está listo"
+              break
+            fi
+            echo "Esperando a PostgreSQL..."
+            sleep 2
+          done
+
       - name: Run migrations
         run: pipenv run python manage.py migrate
+        working-directory: ./expenseswebsite
 
       - name: Run tests
-        run: pipenv run python manage.py test
+        run: pipenv run python manage.py test --keepdb
+        working-directory: ./expenseswebsite
