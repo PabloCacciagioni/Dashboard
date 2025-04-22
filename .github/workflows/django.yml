@@ -57,7 +57,7 @@ jobs:
 
       - name: Run migrations
         run: pipenv run python manage.py migrate
+        working-directory: ./expenseswebsite
 
       - name: Run tests
         run: pipenv run python manage.py test --keepdb
-        
