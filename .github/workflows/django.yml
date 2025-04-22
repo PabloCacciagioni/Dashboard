@@ -24,7 +24,7 @@ jobs:
       DB_NAME: test_db
       DB_USER: postgres
       DB_PASSWORD: 44495131
-      DB_HOST: 127.0.0.1 
+      DB_HOST: db
       DB_PORT: 5432
       DEBUG: "True"
 
@@ -42,12 +42,13 @@ jobs:
 
       - name: Install dependecies
         run: pipenv install --dev
+        working-directory: ./expenseswebsite
 
       - name: Wait for PostgreSQL to be ready
         run: |
           echo "Esperando a que PostgreSQL esté listo..."
           for i in {1..30}; do
-            if pg_isready -h 127.0.0.1 -p 5432 -U postgres; then
+            if pg_isready -h db-p 5432 -U postgres; then
               echo "PostgreSQL está listo"
               break
             fi
@@ -61,3 +62,4 @@ jobs:
 
       - name: Run tests
         run: pipenv run python manage.py test --keepdb
+        working-directory: ./expenseswebsite
